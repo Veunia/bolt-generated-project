@@ -1,30 +1,24 @@
-import { LucideIcon } from 'lucide-react'
-import { Bot, User as UserIcon } from 'lucide-react'
-
 interface ChatMessageProps {
   message: string
   isUser: boolean
   timestamp: Date
+  isTyping?: boolean
 }
 
-export function ChatMessage({ message, isUser, timestamp }: ChatMessageProps) {
+export function ChatMessage({ message, isUser, timestamp, isTyping }: ChatMessageProps) {
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
-      <div className={`max-w-[80%] p-4 rounded-lg flex items-start gap-3 ${
+      <div className={`max-w-[80%] p-4 rounded-lg ${
         isUser ? 'bg-cyan-500/10 border border-cyan-500/20' : 'bg-gray-800'
       }`}>
-        <div className="pt-1">
-          {isUser ? (
-            <UserIcon className="w-5 h-5 text-cyan-500" />
-          ) : (
-            <Bot className="w-5 h-5 text-gray-400" />
+        <p className="text-gray-100">
+          {message}
+          {isTyping && (
+            <span className="ml-2 inline-block w-2 h-2 bg-gray-400 rounded-full animate-blink" />
           )}
-        </div>
-        <div>
-          <p className="text-gray-100">{message}</p>
-          <div className="text-xs text-gray-400 mt-1">
-            {timestamp.toLocaleTimeString()}
-          </div>
+        </p>
+        <div className="text-xs text-gray-400 mt-1">
+          {timestamp.toLocaleTimeString()}
         </div>
       </div>
     </div>
